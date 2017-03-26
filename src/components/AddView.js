@@ -3,12 +3,13 @@ import React from 'react'
 class AddView extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
+        const state = {
             fields: {},
         }
         this.props.fields.forEach((field) => {
-            this.state.fields[field.name] = ''
+            state.fields[field.name] = ''
         })
+        this.state = state
 
         this.handleSave = this.handleSave.bind(this)
         this.handleInputChange = this.handleInputChange.bind(this)

@@ -15,8 +15,8 @@ export default (
         <Route path="/add_company" component={CompanyAdd} />
         <Route path="/company/:name" component={CompanyView}>
             <IndexRoute component={TestimonialList} />
+            <Route path="/company/:name/add_testimonial" component={TestimonialAdd} />
             <Route path="/company/:name/get_slider" component={SliderView} />
         </Route>
-        <Route path="/add_testimonials" component={TestimonialAdd} />
     </Route>
 )
