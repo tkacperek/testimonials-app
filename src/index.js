@@ -12,3 +12,15 @@ render(
     <Router routes={routes} history={browserHistory} />,
     document.getElementById('root'),
 )
+
+/* TODO
+    - slider generator
+    - slider
+    - CompanyList, TestimonialList are disgusting, fix them
+    - paginate database requests
+    - 1 config file
+    - error feedback
+    - clean add forms, redirect
+    - clear other todo tags :P
+    - css
+*/
