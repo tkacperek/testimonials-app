@@ -1,13 +1,17 @@
 import React from 'react'
+
 import AddView from './AddView'
+import firebase from '../modules/firebase'
 
 const fields = [
     { name: 'name', label: 'Name', type: 'text' },
 ]
 
-const handler = () => {
-// const handler = (data) => {
-    // TODO
+const handler = (data) => {
+    firebase.addCompany(data)
+        // TODO
+        .then(() => console.log('success'))
+        .catch(error => console.log(error))
 }
 
 export default () => (

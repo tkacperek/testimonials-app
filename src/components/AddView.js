@@ -16,7 +16,7 @@ class AddView extends React.Component {
     }
 
     handleInputChange(event) {
-        const newState = { fields: {} }
+        const newState = { fields: Object.assign({}, this.state.fields) }
         newState.fields[event.target.id] = event.target.value
         this.setState(newState)
     }
