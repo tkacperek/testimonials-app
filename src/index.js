@@ -1,18 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import * as firebase from 'firebase';
+import React from 'react'
+import { render } from 'react-dom'
+import { Router, browserHistory } from 'react-router'
 
-import App from './App';
-import './index.css';
+import './static/css/index.css'
+import firebase from './modules/firebase'
+import routes from './modules/routes'
 
-const config = {
-    apiKey: 'AIzaSyBujow7s7vhewL86oeIhB7DRU2gStIkUR8',
-    databaseURL: 'https://testimonials-f86d1.firebaseio.com',
-};
-firebase.initializeApp(config);
+firebase.init()
 
-
-ReactDOM.render(
-    <App />,
+render(
+    <Router routes={routes} history={browserHistory} />,
     document.getElementById('root'),
-);
+)
