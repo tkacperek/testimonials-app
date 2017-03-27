@@ -6,7 +6,7 @@ const SliderView = (props) => {
         '</script>'
     return (
         <div>
-            <p>SliderView</p>
+            <h3>Get slider</h3>
             <p>Copy this code to your website:</p>
             <textarea cols="32" rows="4" defaultValue={sliderCode} />
         </div>

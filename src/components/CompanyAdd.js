@@ -7,17 +7,14 @@ const fields = [
     { name: 'name', label: 'Name', type: 'text' },
 ]
 
-const handler = (data) => {
-    firebase.addCompany(data)
-        // TODO
-        .then(() => console.log('success'))
-        .catch(error => console.log(error))
-}
+const handler = data => firebase.addCompany(data)
 
 export default () => (
-    <AddView
-      header="Add company"
-      handler={handler}
-      fields={fields}
-    />
+    <div className="container">
+        <AddView
+          header="Add company"
+          handler={handler}
+          fields={fields}
+        />
+    </div>
 )

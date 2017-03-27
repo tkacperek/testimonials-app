@@ -58,14 +58,44 @@ class ListView extends React.Component {
 
         return (
             <div>
-                <p>{this.props.header}</p>
-                <ul>
+                <h3>{this.props.header}</h3>
+                <ul className="list-group">
                     {itemList}
                 </ul>
-                <button disabled={!this.paginator.hasPrev} onClick={this.getFirst}>First</button>
-                <button disabled={!this.paginator.hasPrev} onClick={this.getPrev}>Previous</button>
-                <button disabled={!this.paginator.hasNext} onClick={this.getNext}>Next</button>
-                <button disabled={!this.paginator.hasNext} onClick={this.getLast}>Last</button>
+                <ul className="pager">
+                    <li className={`${this.paginator.hasPrev ? '' : 'disabled'}`}>
+                        <a
+                          href={undefined}
+                          onClick={this.paginator.hasPrev ? this.getFirst : undefined}
+                        >
+                            First
+                        </a>
+                    </li>
+                    <li className={`${this.paginator.hasPrev ? '' : 'disabled'}`}>
+                        <a
+                          href={undefined}
+                          onClick={this.paginator.hasPrev ? this.getPrev : undefined}
+                        >
+                            Previous
+                        </a>
+                    </li>
+                    <li className={`${this.paginator.hasNext ? '' : 'disabled'}`}>
+                        <a
+                          href={undefined}
+                          onClick={this.paginator.hasNext ? this.getNext : undefined}
+                        >
+                            Next
+                        </a>
+                    </li>
+                    <li className={`${this.paginator.hasNext ? '' : 'disabled'}`}>
+                        <a
+                          href={undefined}
+                          onClick={this.paginator.hasNext ? this.getNext : undefined}
+                        >
+                            Last
+                        </a>
+                    </li>
+                </ul>
             </div>
         )
     }

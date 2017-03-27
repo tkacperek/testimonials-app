@@ -10,12 +10,7 @@ const fields = [
 
 
 const TestimonialAdd = (props) => {
-    const handler = (data) => {
-        firebase.addTestimonial(props.params.name, data)
-            // TODO
-            .then(() => console.log('success'))
-            .catch(error => console.log(error))
-    }
+    const handler = data => firebase.addTestimonial(props.params.name, data)
     return (
         <AddView
           header="Add testimonial"

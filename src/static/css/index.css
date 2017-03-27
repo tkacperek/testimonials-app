@@ -7,3 +7,11 @@ body {
 .active {
     color: red;
 }
+
+.navbar {
+    margin-bottom: 0;
+}
+
+.pager li {
+    margin: 5px;
+}

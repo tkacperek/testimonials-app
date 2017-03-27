@@ -8,8 +8,11 @@ const CompanyView = props => (
         <Menu
           header={`Company: ${props.params.name}`}
           items={getMenuForCompany(props.params.name)}
+          inverseColors
         />
-        {props.children}
+        <div className="container">
+            {props.children}
+        </div>
     </div>
 )
 

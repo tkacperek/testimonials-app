@@ -3,10 +3,9 @@ import React from 'react'
 import ListView from './ListView'
 
 const itemMapper = (key, value) => (
-    <li key={key}>
-        {value.author}
-        {' - '}
-        {value.text}
+    <li className="list-group-item" key={key}>
+        <h4 className="list-group-item-heading">{value.author}</h4>
+        <p className="list-group-item-text" >{value.text}</p>
     </li>
 )
 
