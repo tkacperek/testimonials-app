@@ -1,5 +1,7 @@
 import React from 'react'
 
 export default () => (
-    <p>NotFound</p>
+    <div className="container">
+        <h3>NotFound</h3>
+    </div>
 )
