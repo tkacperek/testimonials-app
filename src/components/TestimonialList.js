@@ -1,91 +1,84 @@
 import React from 'react'
+import * as firebase from 'firebase'
 
-import firebase from '../modules/firebase'
-
-const pageSize = 3
+import FirebasePaginator from '../modules/firebasePaginator'
 
 class TestimonialList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            items: [],
-            page: [],
-            firstVisible: null,
-            showPrev: false,
-            showNext: false,
+            currentPage: {},
+            currentPageKeys: [],
         }
-        this.handlePrev = this.handlePrev.bind(this)
-        this.handleNext = this.handleNext.bind(this)
+        this.getFirst = this.getFirst.bind(this)
+        this.getLast = this.getLast.bind(this)
+        this.getPrev = this.getPrev.bind(this)
+        this.getNext = this.getNext.bind(this)
+        this.updateStateWithPaginator = this.updateStateWithPaginator.bind(this)
     }
 
     componentWillMount() {
-        firebase.getTestimonialListInit(this.props.params.name, (data) => {
-            const newItems = Object.keys(data || {})
-            this.setState({
-                itemData: data,
-                items: newItems,
-                firstVisible: 0,
-                showPrev: false,
-                showNext: this.showNext(0, newItems.length),
-                page: newItems.slice(0, pageSize),
-            })
-        }, () => {
-            // TODO
-            console.log('company list error')
-        })
+        this.paginator = new FirebasePaginator(firebase.database().ref(`/testimonials/${this.props.params.name}`))
+        this.getFirst()
     }
 
-    showPrev(first) {
-        return first > 0
+    getFirst() {
+        this.paginator.getFirst()
+            .then(this.updateStateWithPaginator)
     }
 
-    showNext(first, size) {
-        const itemsSize = size || this.state.items.length
-        return first + pageSize < itemsSize
+    getLast() {
+        this.paginator.getLast()
+            .then(this.updateStateWithPaginator)
     }
 
-    handlePrev() {
-        const newVal = Math.max(0, this.state.firstVisible - pageSize)
+    getPrev() {
+        this.paginator.getPrev()
+            .then(this.updateStateWithPaginator)
+    }
+
+    getNext() {
+        this.paginator.getNext()
+            .then(this.updateStateWithPaginator)
+    }
+
+    updateStateWithPaginator() {
         this.setState({
-            firstVisible: newVal,
-            showPrev: this.showPrev(newVal),
-            showNext: this.showNext(newVal),
-            page: this.state.items.slice(newVal, newVal + pageSize),
-        })
-    }
-
-    handleNext() {
-        const newVal = this.state.firstVisible + pageSize
-        this.setState({
-            firstVisible: newVal,
-            showPrev: this.showPrev(newVal),
-            showNext: this.showNext(newVal),
-            page: this.state.items.slice(newVal, newVal + pageSize),
+            currentPage: this.paginator.currentPage,
+            currentPageKeys: this.paginator.currentPageKeys,
         })
     }
 
     render() {
+        const itemList = this.state.currentPageKeys.length ?
+            this.state.currentPageKeys.map(key => (
+                <li key={key}>
+                    {this.state.currentPage[key].author}
+                    {' - '}
+                    {this.state.currentPage[key].text}
+                </li>
+            ))
+            : <p>The list is empty.</p>
+
         return (
             <div>
                 <p>Company testimonials</p>
                 <ul>
-                    {
-                        this.state.page.map(item => (
-                            <li key={item}>
-                                {this.state.itemData[item].author} - {this.state.itemData[item].text}
-                            </li>
-                        ))
-                    }
+                    {itemList}
                 </ul>
-                { this.state.showPrev &&
-                    <button onClick={this.handlePrev}>Previous</button>
-                }
-                { this.state.showNext &&
-                    <button onClick={this.handleNext}>Next</button>
-                }
+                <button disabled={!this.paginator.hasPrev} onClick={this.getFirst}>First</button>
+                <button disabled={!this.paginator.hasPrev} onClick={this.getPrev}>Previous</button>
+                <button disabled={!this.paginator.hasNext} onClick={this.getNext}>Next</button>
+                <button disabled={!this.paginator.hasNext} onClick={this.getLast}>Last</button>
             </div>
         )
     }
+}
+
+TestimonialList.propTypes = {
+    params: React.PropTypes.shape({
+        name: React.PropTypes.string.isRequired,
+    }).isRequired,
 }
 
 export default TestimonialList

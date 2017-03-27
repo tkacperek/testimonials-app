@@ -1,9 +1,9 @@
 import React from 'react'
 
 const SliderView = (props) => {
-    const sliderCode = `<div id="embed">${props.params.name}</div>\
-        <script async defer src="${window.location.origin}/static/js/embed.js">\
-        </script>`
+    const sliderCode = `<div id="embed">${props.params.name}</div>` +
+        `<script async defer src="${window.location.origin}/static/js/embed.js">` +
+        '</script>'
     return (
         <div>
             <p>SliderView</p>
