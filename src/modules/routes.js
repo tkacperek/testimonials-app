@@ -8,6 +8,7 @@ import CompanyView from '../components/CompanyView'
 import SliderView from '../components/SliderView'
 import TestimonialAdd from '../components/TestimonialAdd'
 import TestimonialList from '../components/TestimonialList'
+import NotFound from '../components/NotFound'
 
 export default (
     <Route path="/" component={MainView}>
@@ -18,5 +19,6 @@ export default (
             <Route path="/company/:name/add_testimonial" component={TestimonialAdd} />
             <Route path="/company/:name/get_slider" component={SliderView} />
         </Route>
+        <Route path="/*" component={NotFound} />
     </Route>
 )
